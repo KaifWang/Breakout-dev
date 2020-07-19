@@ -1,17 +1,15 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { Text, View } from 'react-native';
+import HomePage from './components/Screens/HomePage'
+import ChooseMode from './components/Screens/ChooseMode' 
+import TaskPage from './components/Screens/TaskPage';
+import Timer from './components/Screens/Timer';
+import StatusReport from './components/Screens/StatusReport';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
-function HelloWorld(){
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>
-       Hello World
-      </Text>
-    </View>
-  );
-}
+const Stack = createStackNavigator();
 
 function IamBreakOut(){
   return (
@@ -23,21 +21,21 @@ function IamBreakOut(){
   );
 }
 
-const Tab = createBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Hello" component={HelloWorld} />
-      <Tab.Screen name="I am" component={IamBreakOut} />
-    </Tab.Navigator>
-  );
-}
-
 const App = () => {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <Stack.Navigator>
+      <Stack.Screen
+          name="Home"
+          component={HomePage}
+          options={{ title: 'Welcome' }}
+        />
+      <Stack.Screen name="I am" component={IamBreakOut} />
+      <Stack.Screen name="Tasks" component={TaskPage} />
+      <Stack.Screen name="Choose Mode" component={ChooseMode} />
+      <Stack.Screen name="Timer" component={Timer} />
+      <Stack.Screen name="Status Report" component={StatusReport}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
