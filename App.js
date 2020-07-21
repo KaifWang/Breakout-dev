@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+
 import { Text, View } from 'react-native';
 import HomePage from './components/Screens/HomePage'
 import ChooseMode from './components/Screens/ChooseMode' 
@@ -25,19 +26,19 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+        <Stack.Screen
           name="Home"
           component={HomePage}
-          options={{ title: 'Welcome' }}
+          options={{title: 'Welcome'}}
         />
-      <Stack.Screen name="I am" component={IamBreakOut} />
-      <Stack.Screen name="Tasks" component={TaskPage} />
-      <Stack.Screen name="Choose Mode" component={ChooseMode} />
-      <Stack.Screen name="Timer" component={Timer} />
-      <Stack.Screen name="Status Report" component={StatusReport}/>
+        <Stack.Screen name="I am" component={IamBreakOut} />
+        <Stack.Screen name="Tasks" component={TaskPage} />
+        <Stack.Screen name="Choose Mode" component={ChooseMode} />
+        <Stack.Screen name="Timer" component={Timer} />
+        <Stack.Screen name="Status Report" component={StatusReport} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default App;
