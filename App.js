@@ -1,20 +1,23 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {Text, View} from 'react-native';
-import HomePage from './components/Screens/HomePage';
-import ChooseMode from './components/Screens/ChooseMode';
+
+import { Text, View } from 'react-native';
+import HomePage from './components/Screens/HomePage'
+import ChooseMode from './components/Screens/ChooseMode' 
 import TaskPage from './components/Screens/TaskPage';
 import Timer from './components/Screens/Timer';
 import StatusReport from './components/Screens/StatusReport';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-function IamBreakOut() {
+function IamBreakOut(){
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>I am Break Out</Text>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>
+       I am Break Out
+      </Text>
     </View>
   );
 }

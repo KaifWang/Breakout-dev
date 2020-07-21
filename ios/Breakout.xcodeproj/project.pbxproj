@@ -85,16 +85,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-<<<<<<< HEAD
-				120CFADAD1634C10A482F861 /* libRNProximity.a in Frameworks */,
-=======
-				16AC6CC6DC45F1F6B723EA49 /* libPods-Breakout.a in Frameworks */,
->>>>>>> 0a2dd45... Install dependencies and create simple navigation
-=======
+
 				120CFADAD1634C10A482F861 /* libRNProximity.a in Frameworks */,
 				16AC6CC6DC45F1F6B723EA49 /* libPods-Breakout.a in Frameworks */,
->>>>>>> ba91ea0... Timer Clock Functional Design Finished
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
