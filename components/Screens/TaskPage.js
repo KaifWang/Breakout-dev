@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, FlatList, Alert} from 'react-native';
-import UUIDGenerator from 'react-native-uuid-generator';
+import 'react-native-get-random-values';
+import {uuid} from 'uuidv4';
 import Header from '../TaskPageUtil/Header';
 import ListItem from '../TaskPageUtil/ListItem';
 import AddItem from '../TaskPageUtil/AddItem';
 
 const TaskPage = ({navigation}) => {
 const [items, setItems] = useState([
-  {id: 1, text: 'EECS281 Final Exam Prep'},
-  {id: 2, text: 'Play League of Legend'},
-  {id: 3, text: 'Eat budae jjigae'},
-  {id: 4, text: 'Sleep'}
+  {id: uuid(), text: 'EECS281 Final Exam Prep'},
+  {id: uuid(), text: 'Play League of Legend'},
+  {id: uuid(), text: 'Eat budae jjigae'},
+  {id: uuid(), text: 'Sleep'}
 ]);
 
 const deleteItem = (id) => {
@@ -24,7 +25,7 @@ const addItem = (text) => {
     Alert.alert('Error', 'Please enter an item');
   } else {
     setItems(prevItems => {
-      return[{id:UUIDGenerator.getRandomUUID(), text}, ...prevItems]
+      return[{id:uuid(), text}, ...prevItems]
       });
   }
 };

@@ -25,7 +25,7 @@ function IamBreakOut(){
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator headerMode='none'>
         <Stack.Screen
           name="Home"
           component={HomePage}

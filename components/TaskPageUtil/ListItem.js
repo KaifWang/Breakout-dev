@@ -7,11 +7,6 @@ const ListItem = ({item, deleteItem, navigation}) => {
       <View style={styles.listItemView}>
         <Text style={styles.listItemText}> {item.text}</Text>
         <Button
-          title="Start"
-          color="green"
-          onPress={() => navigation.navigate('Timer')}
-        />
-        <Button
           title="Remove"
           color="firebrick"
           onPress={() => deleteItem(item.id)}
