@@ -11,12 +11,16 @@ Now our code looks like this:
     - Main
         - Pages
             - **ChooseModePage.js**
-            - ...
+            - ... (more pages)
         - TaskPageUtil
-        - And any other folder for utils or other stuffs
-        - ...
+        - ... (And any other folder for utils or other stuffs)
         - **Main.js**
     - Community
+        - Pages
+            - **something.js**
+            - ...
+        - ...
+        - **Community.js**
     - Setting
-    - ...
+    - ... 
     **Breakout.js**
