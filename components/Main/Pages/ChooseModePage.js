@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Button, StyleSheet} from 'react-native';
 
-const ChooseMode = ({navigation}) =>{
+const ChooseModePage = ({navigation}) =>{
   return(
     <View style = {styles.container}>
     <Button title = "Start a Task from Task List" color="#007AFF" 
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ChooseMode;
+export default ChooseModePage;

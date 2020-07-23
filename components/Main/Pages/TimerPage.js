@@ -1,11 +1,13 @@
 //@todo Michael please integrate the timer component there.
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
 
-const StatusReport = () => {
+const TimerPage = ({navigation}) => {
   return(
     <View style={styles.header}>
-      <Text style={styles.text}> This is a status report</Text>
+      <Text style={styles.text}>Timer starts!</Text>
+      <Button title = "End Timer" color="red" 
+           onPress={() => navigation.navigate('Status Report')} />
     </View>
   )
 };
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'green'
+    backgroundColor: 'darkslateblue'
   },
   text:{
       color:'#fff',
@@ -25,4 +27,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default StatusReport;
+export default TimerPage;
