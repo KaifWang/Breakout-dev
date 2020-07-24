@@ -1,0 +1,35 @@
+AUTOLINK ERROR
+warn Package react-native-proximity has been ignored because it contains invalid configuration. Reason: Cannot find module 'react-native-proximity/package.json'
+Require stack:
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/tools/config/resolveNodeModuleDir.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/tools/releaseChecker/index.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/commands/start/runServer.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/commands/start/start.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/commands/index.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/index.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/cli.js
+- /usr/local/lib/node_modules/react-native-cli/index.js
+warn Package moment has been ignored because it contains invalid configuration. Reason: Cannot find module 'moment/package.json'
+Require stack:
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/tools/config/resolveNodeModuleDir.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/tools/releaseChecker/index.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/commands/start/runServer.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/commands/start/start.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/commands/index.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/index.js
+- /Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/cli.js
+- /usr/local/lib/node_modules/react-native-cli/index.js
+warn Calling react-native link [packageName] is deprecated in favor of autolinking. It will be removed in the next major release.
+Autolinking documentation: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
+error Linking "undefined" failed. Run CLI with --verbose flag for more details.
+TypeError: Cannot read property 'prelink' of undefined
+    at Object.link [as func] (/Users/victorli/Desktop/Workspace/Breakout-dev/node_modules/react-native/node_modules/@react-native-community/cli/build/commands/link/link.js:106:26)
+
+POD INSTALL ERROR
+[!] use_native_modules! skipped the react-native dependency 'react-native-proximity'. No podspec file was found.
+    - Check to see if there is an updated version that contains the necessary podspec file
+    - Contact the library maintainers or send them a PR to add a podspec. The react-native-webview podspec is a
+    good example of a package.json driven podspec. See
+    https://github.com/react-native-community/react-native-webview/blob/master/react-native-webview.podspec
+    - If necessary, you can disable autolinking for the dependency and link it manually. See
+    https://github.com/react-native-community/cli/blob/master/docs/autolinking.md#how-can-i-disable-autolinking-for-unsupported-library
