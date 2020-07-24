@@ -2,6 +2,11 @@ import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, Dimensions,Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+const {
+  width: SCREEN_WIDTH,
+  height: SCREEN_HEIGHT,
+} = Dimensions.get('window');
+
 const TimerPage = ({navigation}) => {
   return (
     <View style={styles.container}>
@@ -27,24 +32,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width:"17%",
-    height:"12%",
+    width:SCREEN_WIDTH * 22 / 100,
+    height:SCREEN_HEIGHT * 13 / 100,
     alignItems:'center',
     justifyContent:'center',
   },
   image:{
     flex:1,
-    width:300,
-    height:300
+    width:SCREEN_WIDTH,
+    height:SCREEN_HEIGHT,
   },
   linearGradient:{
     alignItems: 'center',
     justifyContent: 'center',
     flex:1,
-    width: Dimensions.get('window').width
+    width: SCREEN_WIDTH
   },
   time:{
-    paddingBottom:250,
+    paddingBottom:SCREEN_HEIGHT * 40 / 100,
     fontFamily:'GillSans-Light',
     fontSize:40,
     color:'#83ACB2'
