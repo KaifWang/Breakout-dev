@@ -9,7 +9,7 @@ import {
   TouchableHighlightBase,
 } from 'react-native';
 import moment from 'moment';
-import Proximity from 'react-native-proximity';
+import Proximity from '@grit96/react-native-proximity';
 
 function Timer({interval, studyType}) {
   const pad = (n) => (n < 10 ? '0' + n : n);
