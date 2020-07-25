@@ -10,7 +10,7 @@ const Header = ({title}) => {
 };
 
 Header.defaultProps = {
-    title: 'Tasks'
+    title: 'Current Tasks'
 }
 
 const styles = StyleSheet.create({
