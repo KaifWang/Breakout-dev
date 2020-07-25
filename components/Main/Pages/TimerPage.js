@@ -1,5 +1,5 @@
-import React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Dimensions,Image} from 'react-native';
+import React, { useState } from "react";
+import {Text, View, StyleSheet, TouchableOpacity, Dimensions, Image, ImageBackground, Modal, TouchableHighlight} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const {
@@ -8,8 +8,29 @@ const {
 } = Dimensions.get('window');
 
 const TimerPage = ({navigation}) => {
+    //modalVisible, a boolean variable, is the current visibility status of the pop-up window. true->show, false->hide
+    const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+      <ImageBackground style={styles.PopUpImage} source = {require('../../../images/PopUpBackground.png')}>
+        <TouchableHighlight
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <Image style={styles.PopUpButtonImage} source = {require('../../../images/PopUpButton.png')}></Image>
+        </TouchableHighlight>
+      </ImageBackground>
+      </Modal>
+
       <LinearGradient
           colors={['#C8E0E1', 'white']}
           style={styles.linearGradient}
@@ -53,6 +74,19 @@ const styles = StyleSheet.create({
     fontFamily:'GillSans-Light',
     fontSize:40,
     color:'#83ACB2'
+  },
+  PopUpImage: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 220,
+    marginLeft: "5%",
+    width: 400,
+    height: 400
+  },
+  PopUpButtonImage:{
+    marginTop: 180,
+    width: 400,
+    height: 400
   }
 });
 
