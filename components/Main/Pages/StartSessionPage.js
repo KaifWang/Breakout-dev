@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Button, StyleSheet} from 'react-native';
 
-const HomePage = ({navigation})=>{
+const StartSessionPage = ({navigation})=>{
     return(
       <View style = {styles.container}>
-      <Button title = "Start Task" color="#007AFF" 
-           onPress={() => navigation.navigate('Choose Mode')} />
+      <Button title = "Start Session" color="#007AFF" 
+           onPress={() => navigation.navigate('Tasks')} />
       </View>
     )
   }
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePage;
+export default StartSessionPage;

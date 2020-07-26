@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
+import org.linusu.RNGetRandomValuesPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import io.github.traviskn.rnuuidgenerator.RNUUIDGeneratorPackage;
 import com.facebook.react.ReactInstanceManager;
