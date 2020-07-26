@@ -1,11 +1,6 @@
+//Temporary place holder for chat rooms and other activities
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button, //will remove once tyz includes the change
-  Dimensions,
-} from 'react-native';
+import {Text, View, StyleSheet, Button, Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RestButton from '../TimerUtil/RestButton';
 import moment from 'moment';
@@ -22,7 +17,7 @@ function Timer({interval}) {
     </Text>
   );
 }
-//waiting for tyz's change please use it to replace Please flip over the phone text and Okay! Button
+
 const TimerPage = (props) => {
   return (
     <View style={styles.container}>
@@ -30,9 +25,12 @@ const TimerPage = (props) => {
         colors={['#C8E0E1', 'white']}
         style={styles.linearGradient}>
         <Timer interval={props.Time} />
-        <RestButton navigation={props.navigation} Stop={props.Stop} />
-        <Text>Please Flip Over the Phone</Text>
-        <Button title="Okay!" onPress={props.Start} />
+        <Text>We are resting</Text>
+        <Button title="Back to Work" onPress={props.Resume} />
+        <Button
+          title="End Session"
+          onPress={() => props.navigation.navigate('Status Report')}
+        />
       </LinearGradient>
     </View>
   );
