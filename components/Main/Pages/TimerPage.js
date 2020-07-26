@@ -1,13 +1,7 @@
-import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button, //will remove once tyz includes the change
-  Dimensions,
-} from 'react-native';
+import React, { useState } from "react";
 import LinearGradient from 'react-native-linear-gradient';
 import RestButton from '../TimerUtil/RestButton';
+import {Text, View, StyleSheet, Dimensions, Image, ImageBackground, Modal, TouchableHighlight} from 'react-native';
 import moment from 'moment';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -22,17 +16,36 @@ function Timer({interval}) {
     </Text>
   );
 }
-//waiting for tyz's change please use it to replace Please flip over the phone text and Okay! Button
+
 const TimerPage = (props) => {
+  //modalVisible, a boolean variable, is the current visibility status of the pop-up window. true->show, false->hide
+  const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+      <ImageBackground style={styles.PopUpImage} source = {require('../../../images/PopUpBackground.png')}>
+        <TouchableHighlight
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <Image style={styles.PopUpButtonImage} source = {require('../../../images/PopUpButton.png')}></Image>
+        </TouchableHighlight>
+      </ImageBackground>
+      </Modal>
+
       <LinearGradient
         colors={['#C8E0E1', 'white']}
         style={styles.linearGradient}>
         <Timer interval={props.Time} />
         <RestButton navigation={props.navigation} Stop={props.Stop} />
-        <Text>Please Flip Over the Phone</Text>
-        <Button title="Okay!" onPress={props.Start} />
       </LinearGradient>
     </View>
   );
@@ -67,6 +80,19 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: '#83ACB2',
   },
+  PopUpImage: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "30%",
+    width: "100%",
+  },
+  PopUpButtonImage:{
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "45%",
+    width: SCREEN_HEIGHT * 40 / 100,
+    height: SCREEN_HEIGHT * 40 / 100
+  }
 });
 
 export default TimerPage;
