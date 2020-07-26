@@ -78,15 +78,15 @@ const styles = StyleSheet.create({
   PopUpImage: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 220,
-    marginLeft: "5%",
-    width: 400,
-    height: 400
+    marginTop: "30%",
+    width: "100%",
   },
   PopUpButtonImage:{
-    marginTop: 180,
-    width: 400,
-    height: 400
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "45%",
+    width: SCREEN_HEIGHT * 40 / 100,
+    height: SCREEN_HEIGHT * 40 / 100
   }
 });
 
