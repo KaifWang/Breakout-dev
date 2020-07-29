@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 
 const Main = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="Home" component={StartSessionPage} />
       <Stack.Screen name="Tasks" component={TaskPage} />
       <Stack.Screen name="Timer" component={Timer} />

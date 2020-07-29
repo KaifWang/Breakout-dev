@@ -2,8 +2,8 @@ import React from 'react';
 import Main from './Main/Main';
 import Setting from './Setting/Setting';
 import Community from './Community/Community';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,6 +17,6 @@ const BreakoutApp = () => {
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default BreakoutApp;

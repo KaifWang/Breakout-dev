@@ -13,12 +13,12 @@ function Timer({interval}) {
 
   return (
     <Text style={styles.time}>
-      {pad(duration.minutes()) + ':' + pad(duration.seconds())}
+      {pad(duration.hours()) + ':' + pad(duration.minutes())}
     </Text>
   );
 }
 
-const TimerPage = (props) => {
+const RestPage = (props) => {
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TimerPage;
+export default RestPage;
