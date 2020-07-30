@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, {Component} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import RestButton from '../TimerUtil/RestButton';
-import {Text, View, StyleSheet, Dimensions, Image, ImageBackground, Modal, TouchableHighlight} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ImageBackground,
+  Modal,
+  TouchableHighlight,
+} from 'react-native';
 import moment from 'moment';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -12,44 +21,67 @@ function Timer({interval}) {
 
   return (
     <Text style={styles.time}>
-      {pad(duration.minutes()) + ':' + pad(duration.seconds())}
+      {pad(duration.hours()) + ':' + pad(duration.minutes())}
     </Text>
   );
 }
 
-const TimerPage = (props) => {
+class TimerPage extends Component {
+  constructor(prop) {
+    super(prop);
+    this.state = {
+      //popup = false means no pop up yet, true means already popup
+      modalVisible: true,
+    };
+  }
   //modalVisible, a boolean variable, is the current visibility status of the pop-up window. true->show, false->hide
-  const [modalVisible, setModalVisible] = useState(true);
-  return (
-    <View style={styles.container}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-        }}
-      >
-      <ImageBackground style={styles.PopUpImage} source = {require('../../../images/PopUpBackground.png')}>
-        <TouchableHighlight
-          onPress={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <Image style={styles.PopUpButtonImage} source = {require('../../../images/PopUpButton.png')}></Image>
-        </TouchableHighlight>
-      </ImageBackground>
-      </Modal>
+  setModalVisible = (visible) => {
+    this.setState({modalVisible: visible});
+  };
 
-      <LinearGradient
-        colors={['#C8E0E1', 'white']}
-        style={styles.linearGradient}>
-        <Timer interval={props.Time} />
-        <RestButton navigation={props.navigation} Stop={props.Stop} />
-      </LinearGradient>
-    </View>
-  );
-};
+  render() {
+    const {modalVisible} = this.state;
+    console.log(this.props.PopState);
+    return (
+      <View style={styles.container}>
+        {this.props.PopState == false && (
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+            }}>
+            <ImageBackground
+              style={styles.PopUpImage}
+              source={require('../../../images/PopUpBackground.png')}>
+              <TouchableHighlight
+                onPress={
+                  (() => this.setModalVisible(!modalVisible),
+                  this.props.Start,
+                  this.props.Pop)
+                }>
+                <Image
+                  style={styles.PopUpButtonImage}
+                  source={require('../../../images/PopUpButton.png')}></Image>
+              </TouchableHighlight>
+            </ImageBackground>
+          </Modal>
+        )}
+
+        <LinearGradient
+          colors={['#C8E0E1', 'white']}
+          style={styles.linearGradient}>
+          <Timer interval={this.props.Time} />
+          <RestButton
+            navigation={this.props.navigation}
+            Stop={this.props.Stop}
+          />
+        </LinearGradient>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -81,18 +113,18 @@ const styles = StyleSheet.create({
     color: '#83ACB2',
   },
   PopUpImage: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "30%",
-    width: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '30%',
+    width: '100%',
   },
-  PopUpButtonImage:{
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "45%",
-    width: SCREEN_HEIGHT * 40 / 100,
-    height: SCREEN_HEIGHT * 40 / 100
-  }
+  PopUpButtonImage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '45%',
+    width: (SCREEN_HEIGHT * 40) / 100,
+    height: (SCREEN_HEIGHT * 40) / 100,
+  },
 });
 
 export default TimerPage;

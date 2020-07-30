@@ -1,13 +1,5 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  TouchableWithoutFeedback,
-  Button,
-  TouchableHighlightBase,
-} from 'react-native';
+import {View} from 'react-native';
 import TimerPage from '../Pages/TimerPage';
 import RestPage from '../Pages/RestPage';
 
@@ -22,6 +14,7 @@ class TimerScreen extends Component {
       restTimeCurrent: 0,
       restTimeSeconds: 0,
       blocked: true,
+      PopUp: false,
     };
   }
 
@@ -88,15 +81,14 @@ class TimerScreen extends Component {
 
   sessionStart = () => {
     this.wStart();
-    console.log('hello');
   };
+
   resumeWork = () => {
     this.rStop();
     this.wStart();
     this.setState({
       blocked: true,
     });
-    console.log('bye');
   };
   stopWork = () => {
     this.wStop();
@@ -104,7 +96,12 @@ class TimerScreen extends Component {
     this.setState({
       blocked: false,
     });
-    console.log('Hi');
+  };
+
+  PopUsed = () => {
+    this.setState({
+      PopUp: true,
+    });
   };
   render() {
     const wTime =
@@ -131,8 +128,10 @@ class TimerScreen extends Component {
             <TimerPage
               navigation={this.props.navigation}
               Time={wTime}
+              PopState={this.state.PopUp}
               Stop={this.stopWork}
               Start={this.sessionStart}
+              Pop={this.PopUsed}
             />
           </View>
         )}
