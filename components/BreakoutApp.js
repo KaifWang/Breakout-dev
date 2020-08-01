@@ -7,6 +7,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
+// we use route to store state and data between differnt state
+// this will return whether we are at 1st page of Main
 function getTabBarVisible(route) {
   console.log(route);
   if(route.state && route.state.index > 0){

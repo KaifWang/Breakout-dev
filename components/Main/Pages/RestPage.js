@@ -29,7 +29,7 @@ const RestPage = (props) => {
         <Button title="Back to Work" onPress={props.Resume} />
         <Button
           title="End Session"
-          onPress={() => props.navigation.navigate('Status Report')}
+          onPress={() => props.navigation.navigate('Status Report', {time: props.Time})}
         />
       </LinearGradient>
     </View>

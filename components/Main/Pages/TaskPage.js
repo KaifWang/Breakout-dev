@@ -7,28 +7,28 @@ import ListItem from '../TaskPageUtil/ListItem';
 import AddItem from '../TaskPageUtil/AddItem';
 
 const TaskPage = ({navigation}) => {
-const [items, setItems] = useState([
-  {id: uuid(), text: 'EECS281 Final Exam Prep'},
-  {id: uuid(), text: 'Play League of Legend'},
-  {id: uuid(), text: 'Eat budae jjigae'},
-  {id: uuid(), text: 'Sleep'}
-]);
+  const [items, setItems] = useState([
+    {id: uuid(), text: 'EECS281 Final Exam Prep'},
+    {id: uuid(), text: 'Play League of Legend'},
+    {id: uuid(), text: 'Eat budae jjigae'},
+    {id: uuid(), text: 'Sleep'}
+  ]);
 
-const deleteItem = (id) => {
-  setItems(prevItems => {
-    return prevItems.filter(item => item.id != id)
-    })
-};
-
-const addItem = (text) => {
-  if(!text){
-    Alert.alert('Error', 'Please enter an item');
-  } else {
+  const deleteItem = (id) => {
     setItems(prevItems => {
-      return[{id:uuid(), text}, ...prevItems]
-      });
-  }
-};
+      return prevItems.filter(item => item.id != id)
+      })
+  };
+
+  const addItem = (text) => {
+    if(!text){
+      Alert.alert('Error', 'Please enter an item');
+    } else {
+      setItems(prevItems => {
+        return[{id:uuid(), text}, ...prevItems]
+        });
+    }
+  };
 
 
   return(
