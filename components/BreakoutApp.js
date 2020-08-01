@@ -7,11 +7,24 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
-const BreakoutApp = () => {
+function getTabBarVisible(route) {
+  console.log(route);
+  if(route.state && route.state.index > 0){
+    return false;
+  }else{
+    return true;
+  }
+}
+
+function BreakoutApp() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Main" component={Main} />
+        <Tab.Screen name="Main" 
+        component={Main} 
+        options={({ route }) => ({
+          tabBarVisible: getTabBarVisible(route),
+        })}/>
         <Tab.Screen name="Community" component={Community} />
         <Tab.Screen name="Setting" component={Setting} />
       </Tab.Navigator>
