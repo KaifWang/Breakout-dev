@@ -2,10 +2,15 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const StatusReportPage = () => {
+function getTime(route){
+  return route.params.time;
+}
+
+const StatusReportPage = ({navigation, route}) => {
   return(
     <View style={styles.header}>
-      <Text style={styles.text}> This is a status report</Text>
+      <Text style={styles.text}> This is a status report. </Text>
+      <Text style={styles.text}> This is a status report. (Time: {getTime(route)})</Text>
     </View>
   )
 };

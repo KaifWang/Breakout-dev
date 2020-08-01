@@ -41,7 +41,7 @@ class TimerPage extends Component {
 
   render() {
     const {modalVisible} = this.state;
-    console.log(this.props.PopState);
+    // console.log(this.props.PopState);
     return (
       <View style={styles.container}>
         {this.props.PopState == false && (
