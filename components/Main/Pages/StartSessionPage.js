@@ -5,7 +5,7 @@ const StartSessionPage = ({navigation})=>{
     return(
       <View style = {styles.container}>
       <Button title = "Start Session" color="#007AFF" 
-           onPress={() => navigation.navigate('Tasks')} />
+           onPress={() => navigation.navigate('NewMeeting')} />
       </View>
     )
   }
