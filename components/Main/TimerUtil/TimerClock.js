@@ -1,148 +1,78 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
-import TimerPage from '../Pages/TimerPage';
-import RestPage from '../Pages/RestPage';
+import {Text, View, StyleSheet, Dimensions} from 'react-native';
+import moment from 'moment';
 
-class TimerScreen extends Component {
-  constructor(prop) {
-    super(prop);
+const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
+
+function TimerDisplay({interval}) {
+  const pad = (n) => (n < 10 ? '0' + n : n);
+  const duration = moment.duration(interval);
+
+  return (
+    <Text style={styles.time}>
+      {pad(duration.hours()) + ':' + pad(duration.minutes())}
+    </Text>
+  );
+}
+
+class TimerClock extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      workTimeStart: 0,
-      workTimeCurrent: 0,
-      workTimeSeconds: 0,
-      restTimeStart: 0,
-      restTimeCurrent: 0,
-      restTimeSeconds: 0,
+      TimeStart: 0,
+      TimeCurrent: 0,
+      TimeSeconds: this.props.Time,
       blocked: true,
-      PopUp: false,
     };
+    this.Stop = this.Stop.bind(this);
+    this.Start = this.Start.bind(this);
+    this.Update = this.Update.bind(this);
   }
 
-  wStart = () => {
+  Update = (time) => {
+    this.setState({
+      TimeSeconds: time,
+    });
+  };
+
+  Start = () => {
     const now = new Date().getTime();
     this.setState({
-      workTimeStart: now,
-      workTimeCurrent: now,
+      TimeStart: now,
+      TimeCurrent: now,
     });
-    this.wTimer = setInterval(() => {
-      this.setState({workTimeCurrent: new Date().getTime()});
+    this.Timer = setInterval(() => {
+      this.setState({TimeCurrent: new Date().getTime()});
     }, 1000);
+
+    this.Saver = setInterval(() => {
+      const temp =
+        this.state.TimeCurrent - this.state.TimeStart + this.state.TimeSeconds;
+      this.props.Save(temp);
+    }, 30000);
   };
 
-  rStart = () => {
-    const now = new Date().getTime();
-    this.setState({
-      restTimeStart: now,
-      restTimeCurrent: now,
-    });
-    this.rTimer = setInterval(() => {
-      this.setState({restTimeCurrent: new Date().getTime()});
-    }, 1000);
+  Stop = () => {
+    clearInterval(this.Timer);
+    clearInterval(this.Saver);
   };
 
-  reset = () => {
-    clearInterval(this.wTimer);
-    clearInterval(this.rTimer);
-    this.setState({
-      workTimeStart: 0,
-      workTimeCurrent: 0,
-      workTimeSeconds: 0,
-      restTimeStart: 0,
-      restTimeCurrent: 0,
-      restTimeSeconds: 0,
-      blocked: false,
-    });
-  };
-  wStop = () => {
-    const temp =
-      this.state.workTimeCurrent -
-      this.state.workTimeStart +
-      this.state.workTimeSeconds;
-    clearInterval(this.wTimer);
-    this.setState({
-      workTimeStart: 0,
-      workTimeCurrent: 0,
-      workTimeSeconds: temp,
-    });
-  };
-
-  rStop = () => {
-    const temp =
-      this.state.restTimeCurrent -
-      this.state.restTimeStart +
-      this.state.restTimeSeconds;
-    clearInterval(this.rTimer);
-    this.setState({
-      restTimeStart: 0,
-      restTimeCurrent: 0,
-      restTimeSeconds: temp,
-    });
-  };
-
-  sessionStart = () => {
-    this.wStart();
-  };
-
-  resumeWork = () => {
-    this.rStop();
-    this.wStart();
-    this.setState({
-      blocked: true,
-    });
-  };
-  stopWork = () => {
-    this.wStop();
-    this.rStart();
-    this.setState({
-      blocked: false,
-    });
-  };
-
-  PopUsed = () => {
-    this.setState({
-      PopUp: true,
-    });
-  };
   render() {
-    const wTime =
-      this.state.workTimeSeconds +
-      this.state.workTimeCurrent -
-      this.state.workTimeStart;
-    const rTime =
-      this.state.restTimeSeconds +
-      this.state.restTimeCurrent -
-      this.state.restTimeStart;
+    const Time =
+      this.state.TimeSeconds + this.state.TimeCurrent - this.state.TimeStart;
     return (
       <View>
-        {this.state.blocked === false && (
-          <View style={{height: '100%'}}>
-            <RestPage
-              navigation={this.props.navigation}
-              Time={rTime}
-              Resume={this.resumeWork}
-            />
-          </View>
-        )}
-        {this.state.blocked === true && (
-          <View style={{height: '100%'}}>
-            <TimerPage
-              navigation={this.props.navigation}
-              Time={wTime}
-              PopState={this.state.PopUp}
-              Stop={this.stopWork}
-              Start={this.sessionStart}
-              Pop={this.PopUsed}
-            />
-          </View>
-        )}
+        <TimerDisplay interval={Time} />
       </View>
     );
   }
 
   componentWillUnmount = () => {
-    clearInterval(this.wTimer);
-    clearInterval(this.rTimer);
-    //clearInterval(this.myInterval);
+    clearInterval(this.Timer);
+    this.props.Save(
+      this.state.TimeSeconds + this.state.TimeCurrent - this.state.TimeStart,
+    );
+
     /*        {wTime === 0 && rTime === 0 && (
           <View style={{height: '100%'}}>
             <TimerPage
@@ -155,4 +85,12 @@ class TimerScreen extends Component {
   };
 }
 
-export default TimerScreen;
+const styles = StyleSheet.create({
+  time: {
+    paddingBottom: (SCREEN_HEIGHT * 40) / 100,
+    fontFamily: 'GillSans-Light',
+    fontSize: 40,
+    color: '#83ACB2',
+  },
+});
+export default TimerClock;

@@ -11,54 +11,64 @@ const TaskPage = ({navigation}) => {
     {id: uuid(), text: 'EECS281 Final Exam Prep'},
     {id: uuid(), text: 'Play League of Legend'},
     {id: uuid(), text: 'Eat budae jjigae'},
-    {id: uuid(), text: 'Sleep'}
+    {id: uuid(), text: 'Sleep'},
   ]);
 
   const deleteItem = (id) => {
-    setItems(prevItems => {
-      return prevItems.filter(item => item.id != id)
-      })
+    setItems((prevItems) => {
+      return prevItems.filter((item) => item.id != id);
+    });
   };
 
   const addItem = (text) => {
-    if(!text){
+    if (!text) {
       Alert.alert('Error', 'Please enter an item');
     } else {
-      setItems(prevItems => {
-        return[{id:uuid(), text}, ...prevItems]
-        });
+      setItems((prevItems) => {
+        return [{id: uuid(), text}, ...prevItems];
+      });
     }
   };
 
-
-  return(
+  return (
     <View style={styles.container}>
       <Header />
-      <Text style = {styles.tips}>(Please selete the tasks you want to work on in this session)</Text>
-      <AddItem addItem = {addItem}/>
-      <FlatList 
-      data={items} 
-      renderItem={({item}) => <ListItem item={item} 
-      deleteItem={deleteItem}
-      navigation={navigation}
-       />}
+      <Text style={styles.tips}>
+        (Please selete the tasks you want to work on in this session)
+      </Text>
+      <AddItem addItem={addItem} />
+      <FlatList
+        data={items}
+        renderItem={({item}) => (
+          <ListItem
+            item={item}
+            deleteItem={deleteItem}
+            navigation={navigation}
+          />
+        )}
       />
-      <Button title = "Next" color="#007AFF" 
-           onPress={() => navigation.navigate('Timer')} />
-      </View>
-  )
+      <Button
+        title="Next"
+        color="#007AFF"
+        onPress={() =>
+          navigation.navigate('Rest', {
+            name: 'Michael',
+          })
+        }
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-  container:{
-    flex : 1,
-    paddingTop:60
+  container: {
+    flex: 1,
+    paddingTop: 60,
   },
-  tips:{
-    color:'grey',
-    textAlign:'center'
-  }
-
+  tips: {
+    color: 'grey',
+    textAlign: 'center',
+  },
 });
 
 export default TaskPage;
