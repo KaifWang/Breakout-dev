@@ -13,7 +13,9 @@ const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 const RestButton = (props) => {
   return (
     <View>
-      <TouchableOpacity style={styles.button} onPress={props.Stop}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={(() => navigation.navigate('Rest'), this.props.Stop)}>
         <Image
           style={styles.image}
           source={require('../../../images/TimerButton.png')}></Image>

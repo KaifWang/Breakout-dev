@@ -1,33 +1,37 @@
 //@todo Michael please integrate the timer component there.
+//will do include moment to convert time into minutes and hours also need to reformate this
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-function getTime(route){
-  return route.params.time;
+function getTime(route) {
+  return route.params.restTime;
 }
 
 const StatusReportPage = ({navigation, route}) => {
-  return(
+  return (
     <View style={styles.header}>
       <Text style={styles.text}> This is a status report. </Text>
-      <Text style={styles.text}> This is a status report. (Time: {getTime(route)})</Text>
+      <Text style={styles.text}>
+        Hello {route.params.name}, Good job you have worked for{' '}
+        {route.params.workTime}
+        and have rested for {getTime(route)}
+      </Text>
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
-  header:{
-    flex:1,
+  header: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'green'
+    backgroundColor: 'green',
   },
-  text:{
-      color:'#fff',
-      fontSize: 30,
-      textAlign: 'center'
-  }
-
-})
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    textAlign: 'center',
+  },
+});
 
 export default StatusReportPage;
