@@ -1,37 +1,55 @@
 //@todo Michael please integrate the timer component there.
 //will do include moment to convert time into minutes and hours also need to reformate this
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-
-function getTime(route) {
-  return route.params.restTime;
-}
+import {View, Text, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 
 const StatusReportPage = ({navigation, route}) => {
-  return (
-    <View style={styles.header}>
-      <Text style={styles.text}> This is a status report. </Text>
-      <Text style={styles.text}>
-        Hello {route.params.name}, Good job you have worked for{' '}
-        {route.params.workTime}
-        and have rested for {getTime(route)}
-      </Text>
+  return(
+    <View style={styles.container}>
+      <SafeAreaView style={styles.header}>
+          <Text style={styles.headerText}>Done</Text>
+      </SafeAreaView>
+      <ScrollView >
+        <View style={styles.part}>
+          <Text style={styles.text}> Graph comes here. </Text>
+        </View>
+        <View style={styles.part}>
+          Hello {route.params.name}, Good job you have worked for{' '}
+          {route.params.workTime}
+          and have rested for {route.params.restTime}
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'green',
   },
-  text: {
-    color: '#fff',
+  header: {
+    flex: 0.1,
+    height: 11,
+    backgroundColor: '#CADEDF',
+    flexDirection: 'column',
+    marginBottom: 2,
+  },
+  headerText:{
+    color:'#FFFFFF',
     fontSize: 30,
-    textAlign: 'center',
+    textAlign: 'right',
+    marginTop: 30,
+    marginRight: 30,
   },
-});
+  part: {
+    marginBottom: 2,
+    backgroundColor: '#CADEDF',
+  },
+  text:{
+    color:'#FFFFFF',
+    fontSize: 30,
+  },
+
+})
 
 export default StatusReportPage;
