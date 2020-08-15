@@ -25,9 +25,12 @@ const StatusReportPage = ({navigation, route}) => {
     {id: uuid(), text: 'Sleep', time: 600},
   ]);
 
+  const workTime = Math.round((route.params.workTime + 0.1) / (route.params.workTime + route.params.restTime + 0.1) * 100);
+  const restTime = Math.round(route.params.restTime / (route.params.workTime + route.params.restTime + 0.1) * 100);
+
   const [times, setTimes] = useState([
-    {x: "Working", y: route.params.workTime / (route.params.workTime + route.params.restTime) * 100, focus: 1},
-    {x: "Resting", y: route.params.restTime / (route.params.workTime + route.params.restTime) * 100, focus: 0}
+    {x: "Working", y: workTime, focus: 1},
+    {x: "Resting", y: restTime, focus: 0}
   ]);
 
   const [time, setTime] = useState(times[0].y);
@@ -36,8 +39,8 @@ const StatusReportPage = ({navigation, route}) => {
 
   const setFocusWork = (index) => {
     const tmp_times = [
-      {x: "Working", y: 83, focus: 1},
-      {x: "Resting", y: 17, focus: 0}
+      {x: "Working", y: workTime, focus: 1},
+      {x: "Resting", y: restTime, focus: 0}
     ];
     let tmp_time = tmp_times[0].y;
     let tmp_word = "Work Time:";
