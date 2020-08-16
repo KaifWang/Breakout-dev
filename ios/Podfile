@@ -16,6 +16,7 @@ target 'Breakout' do
   pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
+  pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
 
   target 'BreakoutTests' do
     inherit! :complete

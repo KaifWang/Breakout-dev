@@ -1,6 +1,5 @@
 import React, {useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import RestButton from '../TimerUtil/RestButton';
 import {
   Text,
   View,
@@ -14,6 +13,7 @@ import {
 } from 'react-native';
 import TimerClock from '../TimerUtil/TimerClock';
 import {ThemeProvider, useFocusEffect} from '@react-navigation/native';
+import moment from 'moment';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -49,7 +49,10 @@ const RestPage = (props) => {
       };
     }, []),
   );
-
+  function MinuteConvert(interval) {
+    const duration = moment.duration(interval);
+    return duration.hours() * 60 + duration.minutes();
+  }
   return (
     <View style={styles.container}>
       {PopUp == false && (
@@ -76,7 +79,12 @@ const RestPage = (props) => {
       <LinearGradient
         colors={['#C8E0E1', 'white']}
         style={styles.linearGradient}>
-        <TimerClock Save={timerSave} Time={RestTime} ref={TimerClockRef} />
+        <TimerClock
+          Save={timerSave}
+          Time={RestTime}
+          ref={TimerClockRef}
+          Type="Rest"
+        />
         <Text>We are resting</Text>
         <Button
           title="Back to Work"
@@ -90,8 +98,8 @@ const RestPage = (props) => {
           title="End Session"
           onPress={() =>
             props.navigation.navigate('Status Report', {
-              restTime: RestTime,
-              workTime: WorkTime,
+              restTime: MinuteConvert(RestTime),
+              workTime: MinuteConvert(WorkTime),
               name: props.route.params.name,
             })
           }

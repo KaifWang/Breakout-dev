@@ -22,11 +22,6 @@ function BreakoutApp() {
   return (
     <NavigationContainer>
       <Tab.Navigator tabBarOptions={{activeTintColor: "#DCA392"}}>
-        <Tab.Screen name="Main" 
-        component={Main} 
-        options={({ route }) => ({
-          tabBarVisible: getTabBarVisible(route),
-        })}/>
         <Tab.Screen 
           name="Community" 
           component={Community} 
@@ -36,6 +31,11 @@ function BreakoutApp() {
             ),
           }}
           />
+        <Tab.Screen name="Main" 
+        component={Main} 
+        options={({ route }) => ({
+          tabBarVisible: getTabBarVisible(route),
+        })}/>
         <Tab.Screen 
           name="Setting" 
           component={Setting} 
