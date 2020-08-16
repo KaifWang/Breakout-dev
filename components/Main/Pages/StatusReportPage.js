@@ -73,7 +73,10 @@ const StatusReportPage = ({navigation, route}) => {
   return(
     <View style={styles.container}>
       <SafeAreaView style={styles.header}>
-          <Text style={styles.headerText}>done</Text>
+          <Text style={styles.headerText} onPress={() => {
+            navigation.navigate('Home');
+          }}
+          >done</Text>
       </SafeAreaView>
       <FlatList
         style={styles.list}
