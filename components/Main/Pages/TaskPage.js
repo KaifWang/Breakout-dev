@@ -26,11 +26,24 @@ const TaskPage = ({navigation}) => {
       Alert.alert('Error', 'Please enter an item');
     } else {
       setItems((prevItems) => {
-        return [{id: uuid(), text, time:0}, ...prevItems];
+        return [{id: uuid(), text, time: 0}, ...prevItems];
       });
     }
   };
 
+  const JSONConvert = (items) => {
+    console.log(items);
+    var result = new Object();
+    for (task in items) {
+      var temp = {
+        text: task.text,
+        time: task.time,
+      };
+      result[task.id] = temp;
+    }
+    console.log(result);
+    return JSON.stringify(result); //converting javascript object into JSON string
+  };
   return (
     <View style={styles.container}>
       <Header />
@@ -54,8 +67,7 @@ const TaskPage = ({navigation}) => {
         onPress={() =>
           navigation.navigate('Rest', {
             name: 'Michael',
-            tasks:items,
-            setTasks:setItems,
+            tasks: JSON.stringify(items),
           })
         }
       />
