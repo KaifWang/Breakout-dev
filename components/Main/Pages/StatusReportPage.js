@@ -17,13 +17,7 @@ function getHour(time){
 
 const StatusReportPage = ({navigation, route}) => {
   
-  const [tasks] = useState([
-    {id: uuid(), text: 'EECS281 Final', time: 120},
-    {id: uuid(), text: 'Play League of Legend', time: 240},
-    {id: uuid(), text: 'Eat budae jjigae', time: 60},
-    {id: uuid(), text: 'Say Goodnight', time: 20},
-    {id: uuid(), text: 'Sleep', time: 600},
-  ]);
+  const {tasks} = route.params;
 
   const workTime = Math.round((route.params.workTime + 0.1) / (route.params.workTime + route.params.restTime + 0.1) * 100);
   const restTime = Math.round(route.params.restTime / (route.params.workTime + route.params.restTime + 0.1) * 100);

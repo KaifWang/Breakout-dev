@@ -1,5 +1,4 @@
 import React, {useState, useRef} from 'react';
-import LinearGradient from 'react-native-linear-gradient';
 import {
   Text,
   View,
@@ -14,6 +13,7 @@ import {
 import TimerClock from '../TimerUtil/TimerClock';
 import {useFocusEffect} from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {uuid} from 'uuidv4';
 import Icon from 'react-native-vector-icons/Feather';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -23,11 +23,14 @@ const RestPage = (props) => {
   const [RestTime, setRestTime] = useState(0);
   const [PopUp, setPopUp] = useState(false);
   const [modalVisible, setModalVisible] = useState(true);
-  const [task, setTask] = useState(
-    {
-      id:1
-    }
-  )
+  const [currentTask, setCurrentTask] = useState({id:1})
+  const {tasks} = props.route.params;
+  pickerTasks = [];
+  for(i = 0; i < tasks.length; ++i){
+    pickerTasks[i] = {label: tasks[i].text, value: i}
+  }
+  //Wrap this in react.useEffect to change states in the previous screen
+  //const {setTasks} = props.route.params;
   const TimerClockRef = useRef();
 
   const timerSave = (time) => {
@@ -83,24 +86,20 @@ const RestPage = (props) => {
       <View style = {styles.horizontal}>
         <Text style={styles.workingOn}> working on:</Text>
         <DropDownPicker
-          items={[
-            {label: 'play league of legend', value: 1},
-            {label: 'study', value: 2},
-            {label: 'eat', value: 3},
-        ]}
-        defaultValue={task.id}
-        arrowColor='#83ACB2'
-        arrowSize= {20}
-        containerStyle={styles.pickerContainer}
-        style={styles.picker}
-        dropDownStyle={styles.dropDown}
-        itemStyle={styles.item}
-        labelStyle={styles.label}
-        activeLabelStyle={styles.activeLabel}
-        selectedLabelStyle={styles.selectedLabel}
-        onChangeItem={item => setTask({
-            id: item.value
-        })}/>
+          items={pickerTasks}
+          defaultValue={currentTask.id}
+          arrowColor='#83ACB2'
+          arrowSize= {20}
+          containerStyle={styles.pickerContainer}
+          style={styles.picker}
+          dropDownStyle={styles.dropDown}
+          itemStyle={styles.item}
+          labelStyle={styles.label}
+          activeLabelStyle={styles.activeLabel}
+          selectedLabelStyle={styles.selectedLabel}
+          onChangeItem={item => setCurrentTask({
+              id: item.value
+          })}/>
       </View>
       <Image
           style={styles.image}
@@ -121,6 +120,7 @@ const RestPage = (props) => {
             restTime: RestTime,
             workTime: WorkTime,
             name: props.route.params.name,
+            tasks
           })
         }
       />

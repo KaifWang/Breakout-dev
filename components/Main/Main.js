@@ -1,6 +1,5 @@
 import React from 'react';
 import StartSessionPage from './Pages/StartSessionPage';
-import ChooseModePage from './Pages/ChooseModePage';
 import TaskPage from './Pages/TaskPage';
 import TimerPage from './Pages/TimerPage';
 import RestPage from './Pages/RestPage';
