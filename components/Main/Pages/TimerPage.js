@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     height: (SCREEN_HEIGHT * 13) / 100,
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
   image: {
     flex: 1,

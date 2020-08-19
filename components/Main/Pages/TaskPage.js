@@ -8,10 +8,11 @@ import AddItem from '../TaskPageUtil/AddItem';
 
 const TaskPage = ({navigation}) => {
   const [items, setItems] = useState([
-    {id: uuid(), text: 'EECS281 Final Exam Prep'},
-    {id: uuid(), text: 'Play League of Legend'},
-    {id: uuid(), text: 'Eat budae jjigae'},
-    {id: uuid(), text: 'Sleep'},
+    {id: uuid(), text: 'EECS281 Final', time: 120},
+    {id: uuid(), text: 'Play League of Legend', time: 240},
+    {id: uuid(), text: 'Eat budae jjigae', time: 60},
+    {id: uuid(), text: 'Say Goodnight', time: 20},
+    {id: uuid(), text: 'Sleep', time: 600},
   ]);
 
   const deleteItem = (id) => {
@@ -25,7 +26,7 @@ const TaskPage = ({navigation}) => {
       Alert.alert('Error', 'Please enter an item');
     } else {
       setItems((prevItems) => {
-        return [{id: uuid(), text}, ...prevItems];
+        return [{id: uuid(), text, time:0}, ...prevItems];
       });
     }
   };
@@ -53,6 +54,8 @@ const TaskPage = ({navigation}) => {
         onPress={() =>
           navigation.navigate('Rest', {
             name: 'Michael',
+            tasks:items,
+            setTasks:setItems,
           })
         }
       />

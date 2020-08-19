@@ -87,10 +87,10 @@ class TimerClock extends Component {
 
 const styles = StyleSheet.create({
   time: {
-    paddingBottom: (SCREEN_HEIGHT * 40) / 100,
     fontFamily: 'GillSans-Light',
-    fontSize: 40,
+    fontSize: 80,
     color: '#83ACB2',
+    paddingBottom: SCREEN_HEIGHT * 5 / 100
   },
 });
 export default TimerClock;
