@@ -33,9 +33,9 @@ const TaskPage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={navigation} items={items} setItems={setItems}/>
       <Text style={styles.tips}>
-        (Please selete the tasks you want to work on in this session)
+        Select tasks to start the session
       </Text>
       <AddItem addItem={addItem} />
       <FlatList
@@ -48,17 +48,7 @@ const TaskPage = ({navigation}) => {
           />
         )}
       />
-      <Button
-        title="Next"
-        color="#007AFF"
-        onPress={() =>
-          navigation.navigate('Rest', {
-            name: 'Michael',
-            tasks:items,
-            setTasks:setItems,
-          })
-        }
-      />
+      <Text style={styles.completeTitle}>View Completed Task</Text>
     </View>
   );
 };
@@ -67,11 +57,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 60,
+    backgroundColor:'white'
   },
   tips: {
-    color: 'grey',
+    marginTop:10,
+    marginBottom:10,
+    fontSize: 25,
+    color: '#EFBE8D',
     textAlign: 'center',
+    fontFamily:'GillSans-Light',
+    fontWeight:'300'
   },
+  completeTitle:{
+    fontSize: 25,
+    color: '#EFBE8D',
+    textAlign: 'center',
+    fontFamily:'GillSans-SemiBold',
+  }
 });
 
 export default TaskPage;

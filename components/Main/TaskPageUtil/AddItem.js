@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 const AddItem = ({addItem}) => {
     const[text, setText] = useState('');
@@ -7,11 +8,13 @@ const AddItem = ({addItem}) => {
 
   return(
     <View>
-      <TextInput placeholder="Add Task..." style= {styles.input}
-       onChangeText={onChange}/>
       <TouchableOpacity style = {styles.btn} onPress={()=>addItem(text)}>
-            <Text style={styles.btnText}>Add Task
-            </Text>
+        <Icon
+          name="plus-circle"
+          size={30}
+          color='#83ACB2'
+          ></Icon>
+        <Text style={styles.btnText}>Add New Task</Text>
       </TouchableOpacity>
     </View>
   )
@@ -25,14 +28,21 @@ const styles = StyleSheet.create({
         fontSize:16,
     },
     btn:{
-        backgroundColor: '#c2bad8',
         padding:9,
-        margin:5
+        margin:5,
+        borderBottomWidth:1.1,
+        borderBottomStartRadius:1000,
+        borderColor:'#C8E0E1',
+        flexDirection:'row',
+        justifyContent:'flex-start'
     },
     btnText:{
-        color:'darkslateblue',
-        fontSize:20,
-        textAlign:'center'
+      marginLeft:20,
+      color: '#EFBE8D',
+      textAlign: 'center',
+      fontFamily:'GillSans-Light',
+      fontWeight:'300',
+      fontSize:25
     }
 });
 
