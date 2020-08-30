@@ -1,6 +1,5 @@
 import React, {Component, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import RestButton from '../TimerUtil/RestButton';
 import {
   Text,
   View,
@@ -42,7 +41,12 @@ const TimerPage = (props) => {
       <LinearGradient
         colors={['#C8E0E1', 'white']}
         style={styles.linearGradient}>
-        <TimerClock Save={timerSave} Time={WorkTime} ref={TimerClockRef} />
+        <TimerClock
+          Save={timerSave}
+          Time={WorkTime}
+          ref={TimerClockRef}
+          Type="Work"
+        />
         <TouchableOpacity
           style={styles.button}
           onPress={() =>

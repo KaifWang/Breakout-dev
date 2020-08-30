@@ -14,7 +14,8 @@ import TimerClock from '../TimerUtil/TimerClock';
 import {useFocusEffect} from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {uuid} from 'uuidv4';
-import Icon from 'react-native-vector-icons/Feather';
+import moment from 'moment';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -23,11 +24,14 @@ const RestPage = (props) => {
   const [RestTime, setRestTime] = useState(0);
   const [PopUp, setPopUp] = useState(false);
   const [modalVisible, setModalVisible] = useState(true);
-  const [currentTask, setCurrentTask] = useState({id:1})
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const [currentTask, setCurrentTask] = useState({id: 1});
   const {tasks} = props.route.params;
-  pickerTasks = [];
-  for(i = 0; i < tasks.length; ++i){
-    pickerTasks[i] = {label: tasks[i].text, value: i}
+  const [Tasks, setTasks] = useState(JSON.parse(tasks)); //takes a JSON object and returns a javascript object
+
+  const pickerTasks = [];
+  for (i = 0; i < Tasks.length; ++i) {
+    pickerTasks[i] = {label: Tasks[i].text, value: i};
   }
   //Wrap this in react.useEffect to change states in the previous screen
   //const {setTasks} = props.route.params;
@@ -39,9 +43,20 @@ const RestPage = (props) => {
   const Pop = () => {
     setPopUp(true);
   };
+
+  const showMenu = () => {
+    console.log('showing menu');
+  };
+  const updateTask = (recentworktime) => {
+    var tempTask = Tasks;
+    tempTask[currentTask.id].time += MinuteConvert(recentworktime - WorkTime);
+    setTasks(tempTask);
+  };
   React.useEffect(() => {
     if (props.route.params?.workTime) {
-      setWorkTime(props.route.params?.workTime);
+      updateTask(props.route.params.workTime);
+      console.log('on:', Tasks);
+      setWorkTime(props.route.params.workTime);
       TimerClockRef.current.Update(RestTime);
       TimerClockRef.current.Start();
 
@@ -52,14 +67,56 @@ const RestPage = (props) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      console.log('Task:', Tasks);
+
       return () => {
         TimerClockRef.current.Stop();
+        console.log('leaving', Tasks);
       };
     }, []),
   );
-
+  function MinuteConvert(interval) {
+    const duration = moment.duration(interval);
+    return duration.hours() * 60 + duration.minutes();
+  }
   return (
     <View style={styles.container}>
+      <View style={styles.menu}>
+        <Icon.Button
+          name="navicon"
+          size={(SCREEN_WIDTH * SCREEN_HEIGHT) / 9000}
+          backgroundColor="#C8E0E1"
+          onPress={() => {
+            setModalVisible2(!modalVisible2);
+          }}
+        />
+      </View>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible2}
+        backdropOpacity={0.5}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
+        <View style={{flex: 1}}>
+          <View style={styles.arrow}>
+            <Icon.Button
+              name="arrow-left"
+              size={(SCREEN_WIDTH * SCREEN_HEIGHT) / 9000}
+              backgroundColor="#FFFFFF"
+              onPress={() => {
+                setModalVisible2(!modalVisible2);
+              }}
+            />
+          </View>
+          <View>
+            <Text style={styles.workTime}>work time</Text>
+          </View>
+        </View>
+      </Modal>
+
       {PopUp == false && (
         <Modal
           animationType="slide"
@@ -83,13 +140,13 @@ const RestPage = (props) => {
       )}
       <Text style={styles.workTime}>work time</Text>
       <TimerClock Save={timerSave} Time={RestTime} ref={TimerClockRef} />
-      <View style = {styles.horizontal}>
+      <View style={styles.horizontal}>
         <Text style={styles.workingOn}> working on:</Text>
         <DropDownPicker
           items={pickerTasks}
           defaultValue={currentTask.id}
-          arrowColor='#83ACB2'
-          arrowSize= {20}
+          arrowColor="#83ACB2"
+          arrowSize={20}
           containerStyle={styles.pickerContainer}
           style={styles.picker}
           dropDownStyle={styles.dropDown}
@@ -97,14 +154,16 @@ const RestPage = (props) => {
           labelStyle={styles.label}
           activeLabelStyle={styles.activeLabel}
           selectedLabelStyle={styles.selectedLabel}
-          onChangeItem={item => setCurrentTask({
-              id: item.value
-          })}/>
+          onChangeItem={(item) =>
+            setCurrentTask({
+              id: item.value,
+            })
+          }
+        />
       </View>
       <Image
-          style={styles.image}
-          source={require('../../../images/table.png')}>
-      </Image>
+        style={styles.image}
+        source={require('../../../images/table.png')}></Image>
       <Button
         title="Back to Work"
         onPress={() =>
@@ -117,10 +176,10 @@ const RestPage = (props) => {
         title="End Session"
         onPress={() =>
           props.navigation.navigate('Status Report', {
-            restTime: RestTime,
-            workTime: WorkTime,
+            restTime: MinuteConvert(RestTime),
+            workTime: MinuteConvert(WorkTime),
             name: props.route.params.name,
-            tasks
+            tasks: JSON.stringify(Tasks), //converting javascript object into JSON string
           })
         }
       />
@@ -132,16 +191,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#C8E0E1',
+    backgroundColor: '#C8E0E1',
   },
-  horizontal:{
+  horizontal: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex:1
+    zIndex: 1,
+  },
+  menu: {
+    marginLeft: SCREEN_WIDTH / 1.25,
+    marginTop: SCREEN_HEIGHT / 15,
+  },
+  arrow: {
+    marginRight: SCREEN_WIDTH / 1.3,
+    marginTop: SCREEN_HEIGHT / 15,
   },
   image: {
-    resizeMode:'contain',
+    resizeMode: 'contain',
     width: (SCREEN_WIDTH * 60) / 100,
     height: (SCREEN_HEIGHT * 50) / 100,
   },
@@ -149,48 +216,48 @@ const styles = StyleSheet.create({
     fontFamily: 'GillSans-Light',
     fontSize: 20,
     color: '#83ACB2',
-    paddingRight:(SCREEN_HEIGHT * 1) / 100
+    paddingRight: (SCREEN_HEIGHT * 1) / 100,
   },
-  workTime:{
+  workTime: {
     fontFamily: 'GillSans-Light',
     fontSize: 20,
     color: '#83ACB2',
-    paddingTop:(SCREEN_HEIGHT * 10) / 100,
-  }, 
-  label:{
+    paddingTop: SCREEN_HEIGHT / 250,
+  },
+  label: {
     fontFamily: 'GillSans-Light',
     color: '#83ACB2',
     fontSize: 20,
   },
-  item:{
-    justifyContent:'flex-start',
+  item: {
+    justifyContent: 'flex-start',
   },
-  activeLabel:{
+  activeLabel: {
     fontFamily: 'GillSans-Bold',
     color: '#83ACB2',
   },
-  selectedLabel:{
+  selectedLabel: {
     fontFamily: 'GillSans-Bold',
     color: '#83ACB2',
   },
-  pickerContainer:{
-    backgroundColor:'#C8E0E1',
-    height: SCREEN_HEIGHT * 5 / 100,
+  pickerContainer: {
+    backgroundColor: '#C8E0E1',
+    height: (SCREEN_HEIGHT * 5) / 100,
     width: (SCREEN_WIDTH * 30) / 100,
   },
-  picker:{
-    backgroundColor:'#C8E0E1',
+  picker: {
+    backgroundColor: '#C8E0E1',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  dropDown:{
+  dropDown: {
     color: '#83ACB2',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20, 
-    borderBottomRightRadius: 20
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   PopUpImage: {
     justifyContent: 'center',

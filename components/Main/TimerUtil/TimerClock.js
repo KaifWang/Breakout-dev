@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, Dimensions} from 'react-native';
 import moment from 'moment';
+import {notificationManager} from './NotificationManager';
+import BackgroundFetch from 'react-native-background-fetch';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -27,7 +29,66 @@ class TimerClock extends Component {
     this.Stop = this.Stop.bind(this);
     this.Start = this.Start.bind(this);
     this.Update = this.Update.bind(this);
+    this.localNotify = null;
   }
+
+  componentDidMount() {
+    this.localNotify = notificationManager;
+    this.localNotify.configure();
+
+    BackgroundFetch.configure(
+      {
+        minimumFetchInterval: 15, // fetch interval in minutes
+      },
+      async (taskId) => {
+        console.log('Received background-fetch event: ', taskId);
+        this.sendNotification();
+
+        BackgroundFetch.finish(taskId);
+      },
+      (error) => {
+        console.error('RNBackgroundFetch failed to start.');
+      },
+    );
+  }
+
+  sendNotification = () => {
+    const now = new Date().getTime();
+    const duration = moment.duration(now - this.state.TimeStart);
+    hours = duration.hours();
+    minutes = duration.minutes();
+
+    const options = {
+      playSound: true,
+      soundName: 'default',
+      vibrate: true,
+    };
+    if (this.props.Type == 'Work' && (hours >= 1 || minutes > 50)) {
+      //change this to make notification more frequent
+      this.localNotify.showNotification(
+        1,
+        'Time to take a Break!',
+        'you have studied for' +
+          (hours < 1 ? ' ' : hours + ' hours and ') +
+          minutes +
+          'minutes.',
+        {},
+        options,
+      );
+    } else if (this.props.Type == 'Rest' && (hours >= 1 || minutes > 14)) {
+      //every 15 minutes
+      this.localNotify.showNotification(
+        1,
+        'Time to get back to work!',
+        'you have rested for' +
+          (hours < 1 ? ' ' : hours + ' hours and ') +
+          minutes +
+          'minutes.',
+        {},
+        options,
+      );
+    }
+  };
 
   Update = (time) => {
     this.setState({
@@ -49,12 +110,14 @@ class TimerClock extends Component {
       const temp =
         this.state.TimeCurrent - this.state.TimeStart + this.state.TimeSeconds;
       this.props.Save(temp);
-    }, 30000);
+      this.sendNotification();
+    }, 15000);
   };
 
   Stop = () => {
     clearInterval(this.Timer);
     clearInterval(this.Saver);
+    clearInterval(this.NotificationTimer);
   };
 
   render() {
