@@ -1,20 +1,37 @@
 import React, {useState} from 'react';
-import {View, Button, Text, StyleSheet, FlatList, Alert} from 'react-native';
+import {View, Button, Text, StyleSheet, FlatList, Alert, InteractionManager} from 'react-native';
 import 'react-native-get-random-values';
 import {uuid} from 'uuidv4';
 import Header from '../TaskPageUtil/Header';
 import ListItem from '../TaskPageUtil/ListItem';
 import AddItem from '../TaskPageUtil/AddItem';
+import CompleteTask from '../TaskPageUtil/CompleteTask'
 
 const TaskPage = ({navigation}) => {
   const [items, setItems] = useState([
-    {id: uuid(), text: 'EECS281 Final', time: 120},
-    {id: uuid(), text: 'Play League of Legend', time: 240},
-    {id: uuid(), text: 'Eat budae jjigae', time: 60},
-    {id: uuid(), text: 'Say Goodnight', time: 20},
-    {id: uuid(), text: 'Sleep', time: 600},
+    {id: uuid(), text: 'EECS281 Final', time: 120, selected: true},
+    {id: uuid(), text: 'Play League of Legend', time: 240, selected: false},
+    {id: uuid(), text: 'Eat budae jjigae', time: 60, selected: true},
+    {id: uuid(), text: 'Say Goodnight', time: 20, selected: false},
+    {id: uuid(), text: 'Sleep', time: 600, selected: false},
   ]);
 
+  const [completeItems, setCompleteItems] = useState([
+    {id: uuid(), text: 'Shower', time: 120, selected: true},
+    {id: uuid(), text: 'Cook', time: 240, selected: false},
+  ]);
+
+
+  const selectItem = (id, isSelect) => {
+    setItems((prevItems) =>{
+      for(i = 0; i < prevItems.length ; ++i){
+        if(prevItems[i].id == id){
+          prevItems[i].selected = isSelect
+        }
+      }
+      return prevItems
+    })
+  }
   const deleteItem = (id) => {
     setItems((prevItems) => {
       return prevItems.filter((item) => item.id != id);
@@ -26,7 +43,7 @@ const TaskPage = ({navigation}) => {
       Alert.alert('Error', 'Please enter an item');
     } else {
       setItems((prevItems) => {
-        return [{id: uuid(), text, time:0}, ...prevItems];
+        return [{id: uuid(), text, time:0, selected: false}, ...prevItems];
       });
     }
   };
@@ -44,11 +61,13 @@ const TaskPage = ({navigation}) => {
           <ListItem
             item={item}
             deleteItem={deleteItem}
+            selectItem={selectItem}
             navigation={navigation}
           />
         )}
+      ListFooterComponent={CompleteTask}
       />
-      <Text style={styles.completeTitle}>View Completed Task</Text>
+      
     </View>
   );
 };
@@ -68,12 +87,6 @@ const styles = StyleSheet.create({
     fontFamily:'GillSans-Light',
     fontWeight:'300'
   },
-  completeTitle:{
-    fontSize: 25,
-    color: '#EFBE8D',
-    textAlign: 'center',
-    fontFamily:'GillSans-SemiBold',
-  }
 });
 
 export default TaskPage;

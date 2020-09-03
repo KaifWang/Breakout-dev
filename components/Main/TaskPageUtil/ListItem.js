@@ -2,9 +2,8 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Button} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 
-const ListItem = ({item, deleteItem}) => {
+const ListItem = ({item, selectItem}) => {
 
-    
 const [isSelected, setSelection] = useState(false);
 
   return(
@@ -17,10 +16,12 @@ const [isSelected, setSelection] = useState(false);
             onCheckColor='#EFBE8D'
             onTintColor='#83ACB2'
          />
+        {selectItem(item.id, isSelected)}
          <Text style={styles.listItemText}> {item.text}</Text>
      </View>
     </TouchableOpacity>
   )
+
 };
 
 

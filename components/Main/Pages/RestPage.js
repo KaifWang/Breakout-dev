@@ -26,9 +26,14 @@ const RestPage = (props) => {
   const [currentTask, setCurrentTask] = useState({id:1})
   const {tasks} = props.route.params;
   pickerTasks = [];
+  j = 0
   for(i = 0; i < tasks.length; ++i){
-    pickerTasks[i] = {label: tasks[i].text, value: i}
+    if(tasks[i].selected){
+      pickerTasks[j] = {label: tasks[i].text, value: ++j}
+    }
   }
+  console.log(pickerTasks.length)
+
   //Wrap this in react.useEffect to change states in the previous screen
   //const {setTasks} = props.route.params;
   const TimerClockRef = useRef();
